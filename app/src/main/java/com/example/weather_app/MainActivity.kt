@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.weather_app.model.WeatherResponse
 import com.example.weather_app.network.RetrofitClient
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var cityInput: EditText
     private lateinit var searchButton: Button
-    private lateinit var resultLayout: LinearLayout
+
+    private lateinit var resultCard: MaterialCardView
     private lateinit var errorText: TextView
     private lateinit var cityNameText: TextView
     private lateinit var tempText: TextView
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         cityInput = findViewById(R.id.cityInput)
         searchButton = findViewById(R.id.searchButton)
-        resultLayout = findViewById(R.id.resultLayout)
+        resultCard = findViewById(R.id.resultCard)
         errorText = findViewById(R.id.errorText)
         cityNameText = findViewById(R.id.cityNameText)
         tempText = findViewById(R.id.tempText)
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayWeather(weather: WeatherResponse) {
         errorText.visibility = View.GONE
-        resultLayout.visibility = View.VISIBLE
+        resultCard.visibility = View.VISIBLE
         cityNameText.text = weather.name
         tempText.text = "${weather.main.temp}°C"
         conditionText.text = weather.weather.firstOrNull()?.description ?: "N/A"
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showError(message: String) {
-        resultLayout.visibility = View.GONE
+        resultCard.visibility = View.GONE
         errorText.visibility = View.VISIBLE
         errorText.text = message
     }
